@@ -1,7 +1,11 @@
 package com.cristiano.encurta_url.domain.entities;
 
+import com.cristiano.encurta_url.domain.exceptions.InvalidUrl;
 import jakarta.persistence.*;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,6 +24,7 @@ public class Url {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(name = "clicks", nullable = false)
     private Integer clicks = 0;
 
     public Url(String id, String url, String slug) {
@@ -44,6 +49,16 @@ public class Url {
 
         if(this.updatedAt == null)
             throw new IllegalArgumentException("UpdatedAt cannot be null");
+
+        this.validateUrl();
+    }
+
+    private void validateUrl() {
+        try {
+            new URL(this.url).toURI();
+        } catch (URISyntaxException | MalformedURLException e) {
+            throw new InvalidUrl();
+        }
     }
 
     public void addClick() {

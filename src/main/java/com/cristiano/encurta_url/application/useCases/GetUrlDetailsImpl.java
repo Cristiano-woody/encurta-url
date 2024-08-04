@@ -31,7 +31,8 @@ public class GetUrlDetailsImpl implements GetUrlDetails {
         return new GetUrlDetailsResponse(
                 url.get().getUrl(),
                 url.get().getSlug(),
-                url.get().getUpdatedAt()
+                url.get().getUpdatedAt(),
+                url.get().getClicks()
         );
     }
 }

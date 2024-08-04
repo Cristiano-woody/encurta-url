@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public record GetUrlDetailsResponse(
         String originalUrl,
         String slug,
-        LocalDateTime updatedAt
+        LocalDateTime updatedAt,
+        Integer clicks
 ) {
 }
